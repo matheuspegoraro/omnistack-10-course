@@ -7,9 +7,13 @@ module.exports = {
         
         const techsArray = parseStringAsArray(techs);
 
+        const techsArrayInsensitive = techsArray.map(tech => {
+            return RegExp(`^${tech}$`, 'i');
+        });
+
         const devs = await Dev.find({
             techs: {
-                $in: techsArray
+                $in: techsArrayInsensitive
             },
             location: {
                 $near: {
