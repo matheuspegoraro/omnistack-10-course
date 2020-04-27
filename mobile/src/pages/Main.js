@@ -35,16 +35,6 @@ function Main({ navigation }) {
     loadInitialPosition();
   }, []);
 
-  useEffect(() => {
-    let keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', keyboardDidShow);
-    let keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', keyboardDidHide);
-
-    return () => {
-      keyboardDidShowListener.remove();
-      keyboardDidHideListener.remove();
-    };
-  }, []);
-
   async function loadDevs() {
     const { latitude, longitude } = currentRegion;
 
@@ -61,12 +51,6 @@ function Main({ navigation }) {
 
   async function handleRegionChanged(region) {
     setCurrentRegion(region);
-  }
-
-  const keyboardDidShow = e => {
-    let newSize = e.endCoordinates.height + 90;
-    
-    setFormBottom(newSize);
   }
   
   const keyboardDidHide = () => setFormBottom(20);
